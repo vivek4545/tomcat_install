@@ -1,0 +1,27 @@
+---
+# This yml file will install tomcat on linux server 
+
+- hosts: linux_hosts
+  become: yes
+  connection: ssh 
+
+  tasks:
+          - name: Install JDK on linux
+            yum:
+                    name: java
+                    state: latest
+
+          - name: download tomcat server package
+            get_url:
+                    url: https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.68/bin/apache-tomcat-8.5.68.tar.gz
+                    dest: /app/devops/tools
+                    mode: 0750
+
+          - name: Extract tomcat package
+            unarchive: 
+                   src: /app/devops/tools/apache-tomcat-8.5.68.tar.gz
+                   dest: /app/devops/tools
+                   remote_src: yes
+
+          - name: start tomcat services
+            shell: nohup /app/devops/tools/apache-tomcat-8.5.68/bin/startup.sh
