@@ -23,5 +23,23 @@
                    dest: /app/devops/tools
                    remote_src: yes
 
+          - name: Rename tomcat folder
+            shell: mv apache-tomcat-8.5.68 tomcat
+            args:
+                    chdir: /app/devops/tools
+          
+          - name: Downalod jenkins war file
+            shell: wget https://get.jenkins.io/war-stable/2.289.1/jenkins.war
+             agrs:
+                    chdir: /app/devops
+          
+          - name: Copy jenkins file to tomcat webapps folder 
+            copy:
+                  src: /app/devops/jenkins.war
+                  dest: /app/devops/tools/tomcat/webapps/
+                  owner: vivek
+                  group: vivek
+                  mode: 0755
+                   
           - name: start tomcat services
-            shell: nohup /app/devops/tools/apache-tomcat-8.5.68/bin/startup.sh
+            shell: nohup /app/devops/tools/tomcat/bin/startup.sh
