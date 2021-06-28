@@ -1,0 +1,34 @@
+# This yamal file will install jenkins
+---
+- hosts: linux_hosts
+  become: yes
+  connection: ssh 
+
+  tasks:
+        #Install java ( yum install java)
+        - name: install the latest version of Java
+          yum:
+            name: java
+            state: latest
+       #Download tomcat (wget url)
+        - name: download tomcat
+          get_url:
+            url: https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.68/bin/apache-tomcat-8.5.68.tar.gz
+            dest: /home/vk-1
+            mode: 0777
+        #Extract tomcat (tar -xvf apache-tomcat-8.5.68.tar.gz)
+        - unarchive:
+            src: /home/vk-1/apache-tomcat-8.5.68.tar.gz
+            dest: /hone/vk-1
+        #Start tomcat service 
+        - name: Go to the folder and execute command
+          command: chdir=/home/vk-1/apache-tomcat-8.5.68/bin ./catalina.sh start
+        #Stop firewall service
+        - name: Start service httpd, if not started
+          ansible.builtin.service:
+            name: firewalld
+            state: stopped
+
+
+
+
