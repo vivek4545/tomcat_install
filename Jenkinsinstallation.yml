@@ -22,7 +22,12 @@
             dest: /hone/vk-1
         #Start tomcat service 
         - name: Go to the folder and execute command
-          command: chdir=/home/vk-1/apache-tomcat-8.5.68/bin ./catalina.sh start
+          command: chdir=/home/vk-1/apache-tomcat-8.5.68/bin 
+        #Start tomcat service
+        - name: Start service httpd, if not started
+          ansible.builtin.service:
+            name: catalina.sh
+            state: started
         #Stop firewall service
         - name: Start service httpd, if not started
           ansible.builtin.service:
