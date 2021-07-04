@@ -1,0 +1,21 @@
+Pipeline {
+  agent { label "Master"}
+  stages{
+      stage("code checkout"){ 
+          steps{
+              url: 'https://github.com/vivek4545/scripts.git',
+              credentialsId: 'Githubentry',
+              git branch: 'master'
+          }
+          }
+      stage("build"){
+          steps{
+              sh "cd scripts && ./install_jenkins.sh"
+          }
+      }
+    
+
+
+  }
+
+}

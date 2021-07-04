@@ -1,0 +1,15 @@
+pipeline {
+  agent { label "vk-3"}
+  stages{
+      stage("code checkout"){ 
+          steps{
+             checkout([$class: 'GitSCM', branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: '207c3f34-aabb-4dc9-85d9-044ebc68e81b', url: 'https://github.com/vivek4545/tomcat_install.git']]])
+          }
+          }
+      stage("build"){
+          steps{
+             sh 'sudo ./tomcat_install.yaml'
+          }
+      }
+  }
+}

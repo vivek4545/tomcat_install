@@ -1,0 +1,20 @@
+Pipeline {
+  agent { label "Master"}
+  stages{
+      stage("code checkout"){ 
+          steps{
+          checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Githubentry', url: 'https://github.com/vivek4545/tomcat_install.git']]])    
+   
+          }
+          }
+      stage("build"){
+          steps{
+              sh "sudo install ansible -y"
+          }
+      }
+    
+
+
+  }
+
+}

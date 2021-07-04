@@ -23,7 +23,7 @@
                    dest: /app/devops/tools
                    remote_src: yes
 
-          -name : Install jenkins on linux
+          - name: Install jenkins on linux
             get_url:
                     url: https://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.68/bin/apache-tomcat-8.5.68.tar.gz
                     dest: /app/devops/tools
